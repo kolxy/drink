@@ -78,7 +78,7 @@
             <div class="game">
                 <div class="stat">Remain: <span id="numCard">0</span></div>
                 <div class="game-section center">
-                    <div id="result" class="mb-3">哈哈哈</div>
+                    <div id="result" class="mb-3">游戏开始</div>
                     <img id="card" class="mb-3" src="img/cards/red_joker.png">
                     <button id="draw" class="btn btn-outline-primary">抽卡</button>
                     <button id="next" class="btn btn-primary" style="display: none;">下一位</button>
@@ -91,6 +91,15 @@
     </body>
     <script type="text/javascript">
         $(function(){
+            $(document).ready(function(e) {
+                var cache = localStorage.getItem("kolxy_drink_rules");
+                if (cache) {
+                    cache = JSON.parse(cache);
+                    Object.entries(cache).forEach(pair => {
+                        $('input[name="' + pair[0] + '"]').val(pair[1]);
+                    });
+                }
+            });
             $(".setup").show();
             var rules = {};
             var cardCode = {
@@ -165,6 +174,7 @@
                 var form = $(this);
                 rules = getFormData($(this));
                 console.log(rules);
+                localStorage.setItem("kolxy_drink_rules", JSON.stringify(rules));
                 showGame();
                 updateStat();
             });
