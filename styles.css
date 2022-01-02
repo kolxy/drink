@@ -15,6 +15,10 @@
     width: 50px;
 }
 
+#setup-form {
+    padding: 50px 0;
+}
+
 .game {
     display: none;
     width: 100%;
@@ -25,6 +29,11 @@
 .game img {
     width: 250px;
     height: auto;
+}
+
+#result {
+    font-size: 16px;
+    text-align: center;
 }
 
 .game-over {
