@@ -18,65 +18,65 @@
     <body>
         <div class="main-frame">
             <div class="setup">
-                <form class="col-sm-3 center" style="display: flex; flex-direction: column;">
+                <form id="setup-form" class="col-sm-3 center" style="display: flex; flex-direction: column;" autocomplete="off">
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">A</span>
-                        <input type="text" class="form-control" aria-label="A" aria-describedby="basic-addon1">
+                        <input name="A" type="text" class="form-control" aria-label="A" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">2</span>
-                        <input type="text" class="form-control" aria-label="2" aria-describedby="basic-addon1">
+                        <input name="2" type="text" class="form-control" aria-label="2" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">3</span>
-                        <input type="text" class="form-control" aria-label="3" aria-describedby="basic-addon1">
+                        <input name="3" type="text" class="form-control" aria-label="3" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">4</span>
-                        <input type="text" class="form-control" aria-label="4" aria-describedby="basic-addon1">
+                        <input name="4" type="text" class="form-control" aria-label="4"  aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">5</span>
-                        <input type="text" class="form-control" aria-label="5" aria-describedby="basic-addon1">
+                        <input name="5" type="text" class="form-control" aria-label="5"  aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">6</span>
-                        <input type="text" class="form-control" aria-label="6" aria-describedby="basic-addon1">
+                        <input name="6" type="text" class="form-control" aria-label="6"  aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">7</span>
-                        <input type="text" class="form-control" aria-label="7" aria-describedby="basic-addon1">
+                        <input name="7" type="text" class="form-control" aria-label="7"  aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">8</span>
-                        <input type="text" class="form-control" aria-label="8" aria-describedby="basic-addon1">
+                        <input name="8" type="text" class="form-control" aria-label="8"  aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">9</span>
-                        <input type="text" class="form-control" aria-label="9" aria-describedby="basic-addon1">
+                        <input name="9" type="text" class="form-control" aria-label="9"  aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">10</span>
-                        <input type="text" class="form-control" aria-label="10" aria-describedby="basic-addon1">
+                        <input name="10" type="text" class="form-control" aria-label="10"  aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">J</span>
-                        <input type="text" class="form-control" aria-label="J" aria-describedby="basic-addon1">
+                        <input name="J" type="text" class="form-control" aria-label="J"  aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">Q</span>
-                        <input type="text" class="form-control" aria-label="Q" aria-describedby="basic-addon1">
+                        <input name="Q" type="text" class="form-control" aria-label="Q"  aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">K</span>
-                        <input type="text" class="form-control" aria-label="K" aria-describedby="basic-addon1">
+                        <input name="K" type="text" class="form-control" aria-label="K"  aria-describedby="basic-addon1">
                     </div>
-                    <button class="btn btn-primary">Submit</button>
+                    <button id="submit" type="submit" class="btn btn-primary">Start</button>
                 </form>
                 
             </div>
             <div class="game">
-
+                <img src="img/cards/red_joker.png">
             </div>
             <div class="game-over">
 
@@ -86,6 +86,59 @@
     <script type="text/javascript">
         $(function(){
             $(".setup").show();
+            var rules = {};
+            var cardCode = {
+                0: "A",
+                1: "2",
+                2: "3",
+                3: "4",
+                4: "5",
+                5: "6",
+                6: "7",
+                7: "8",
+                8: "9",
+                9: "10",
+                10: "J",
+                11: "Q",
+                12: "K"
+            }
+
+            function showSetup() {
+                $(".setup").show();
+                $(".game").hide();
+                $(".game-over").hide();
+            }
+
+            function showGame() {
+                $(".setup").hide();
+                $(".game").show();
+                $(".game-over").hide();
+            }
+
+            function showGameover() {
+                $(".setup").hide();
+                $(".game").hide();
+                $(".game-over").show();
+            }
+
+            function getFormData($form){
+                var unindexed_array = $form.serializeArray();
+                var indexed_array = {};
+
+                $.map(unindexed_array, function(n, i){
+                    indexed_array[n['name']] = n['value'];
+                });
+
+                return indexed_array;
+            }
+
+            $("#setup-form").submit(function(e) {
+                e.preventDefault();
+                var form = $(this);
+                rules = getFormData($(this));
+                console.log(rules);
+                showGame();
+            });
         });
     </script>
 </html>
