@@ -23,6 +23,11 @@
     padding: 20px;
 }
 
+.game img {
+    width: 300px;
+    height: auto;
+}
+
 .game-over {
     display: none;
     width: 100%;
