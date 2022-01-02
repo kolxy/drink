@@ -41,9 +41,19 @@ body {
     width: 250px;
     height: auto;
 }
+.game-section{
+    display: flex;
+    flex-direction: column;
+}
+.stat {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 16px;
+}
 
 #result {
-    font-size: 16px;
+    font-size: 22px;
     text-align: center;
 }
 

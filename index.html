@@ -18,10 +18,10 @@
     <body>
         <div class="main-frame">
             <div class="setup">
-                <form id="setup-form" class="col-sm-3 center" style="display: flex; flex-direction: column; margin-top: 70px; padding-bottom: 70px;" autocomplete="off">
+                <form id="setup-form" class="col-sm-3 center" style="display: flex; flex-direction: column;" autocomplete="off">
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">A</span>
-                        <input name="A" type="text" class="form-control" aria-label="A" aria-describedby="basic-addon1">
+                        <input name="ace" type="text" class="form-control" aria-label="A" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">2</span>
@@ -61,28 +61,31 @@
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">J</span>
-                        <input name="J" type="text" class="form-control" aria-label="J"  aria-describedby="basic-addon1">
+                        <input name="jack" type="text" class="form-control" aria-label="J"  aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">Q</span>
-                        <input name="Q" type="text" class="form-control" aria-label="Q"  aria-describedby="basic-addon1">
+                        <input name="queen" type="text" class="form-control" aria-label="Q"  aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text setup-icon" id="basic-addon1">K</span>
-                        <input name="K" type="text" class="form-control" aria-label="K"  aria-describedby="basic-addon1">
+                        <input name="king" type="text" class="form-control" aria-label="K"  aria-describedby="basic-addon1">
                     </div>
                     <button id="submit" type="submit" class="btn btn-primary">Start</button>
                 </form>
                 
             </div>
             <div class="game">
+                <div class="stat">Remain: <span id="numCard">0</span></div>
                 <div class="game-section center">
                     <div id="result" class="mb-3">哈哈哈</div>
-                    <img src="img/cards/red_joker.png">
+                    <img id="card" class="mb-3" src="img/cards/red_joker.png">
+                    <button id="draw" class="btn btn-outline-primary">抽卡</button>
+                    <button id="next" class="btn btn-primary" style="display: none;">下一位</button>
                 </div>
             </div>
             <div class="game-over">
-
+                <button id="gameover" class="center mb-3 btn btn-primary">Game over</button>
             </div>
         </div>
     </body>
@@ -91,7 +94,7 @@
             $(".setup").show();
             var rules = {};
             var cardCode = {
-                0: "A",
+                0: "ace",
                 1: "2",
                 2: "3",
                 3: "4",
@@ -101,10 +104,19 @@
                 7: "8",
                 8: "9",
                 9: "10",
-                10: "J",
-                11: "Q",
-                12: "K"
+                10: "jack",
+                11: "queen",
+                12: "king"
             }
+
+            var suits = {
+                0: "_of_clubs.png",
+                1: "_of_diamonds.png",
+                2: "_of_hearts.png",
+                3: "_of_spades.png"
+            }
+
+            var cards = Array.from(Array(52).keys())
 
             function showSetup() {
                 $(".setup").show();
@@ -124,6 +136,19 @@
                 $(".game-over").show();
             }
 
+            function updateStat() {
+                $("#numCard").html(cards.length);
+            }
+
+            function reset() {
+                cards = Array.from(Array(52).keys())
+            }
+
+            function gameover() {
+                showGameover();
+                reset();
+            }
+
             function getFormData($form){
                 var unindexed_array = $form.serializeArray();
                 var indexed_array = {};
@@ -141,6 +166,34 @@
                 rules = getFormData($(this));
                 console.log(rules);
                 showGame();
+                updateStat();
+            });
+
+            $("#next").click(function(e) {
+                $(this).hide();
+                $("#draw").show();
+                $("#card").attr("src", "img/cards/red_joker.png");
+                updateStat();
+                if (cards.length == 0) {
+                    gameover();
+                }
+            });
+
+            $("#draw").click(function(e){
+                var index = Math.floor(Math.random() * cards.length);
+                var card = cards[index];
+                var rule = rules[cardCode[card%13]];
+                var cardName = cardCode[card%13] + suits[Math.floor(card/13)];
+                cards.splice(index, 1);
+                $(this).hide();
+                $("#next").show();
+                $("#result").html(rule);
+                $("#card").attr("src", "img/cards/"+cardName);
+                updateStat();
+            });
+
+            $("#gameover").click(function(e) {
+                showSetup();
             });
         });
     </script>
