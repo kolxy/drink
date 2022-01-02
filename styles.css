@@ -14,7 +14,6 @@ body {
     width: 100%;
     height: 100%;
     justify-content: center;
-    flex-direction: column;
     padding: 70px 0;
 }
 
@@ -22,6 +21,13 @@ body {
     display: flex;
     justify-content: center;
     width: 50px;
+}
+
+@media (min-aspect-ratio: 1/1) {
+    #setup-form {
+        margin-top: 70px;
+        padding-bottom: 70px;
+    }
 }
 
 .game {
