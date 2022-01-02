@@ -78,7 +78,7 @@
             <div class="game">
                 <div class="stat">Remain: <span id="numCard">0</span></div>
                 <div class="game-section center">
-                    <div id="result" class="mb-3">神秘莫测的小游戏</div>
+                    <div id="result" class="mb-3">祝你陪酒</div>
                     <img id="card" class="mb-3" src="img/cards/red_joker.png">
                     <button id="draw" class="btn btn-outline-primary">抽卡</button>
                     <button id="next" class="btn btn-primary" style="display: none;">下一位</button>
@@ -183,7 +183,7 @@
                 $(this).hide();
                 $("#draw").show();
                 $("#card").attr("src", "img/cards/red_joker.png");
-                $("#result").html("神秘莫测的小游戏");
+                $("#result").html("祝你陪酒");
                 updateStat();
                 if (cards.length == 0) {
                     gameover();
