@@ -55,6 +55,7 @@ body {
 #result {
     font-size: 22px;
     height: 30px;
+    max-height: 30px;
     text-align: center;
 }
 
